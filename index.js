@@ -18,7 +18,7 @@ app.disable("x-powered-by"); // Hide Express server information
 const services = [
   {
     route: "/auth",
-    target: "https://your-deployed-service.herokuapp.com/auth",
+    target: "https://teste/auth",
   },
   {
     route: "/users",
@@ -109,6 +109,11 @@ app.use((_req, res) => {
     data: null,
   });
 });
+
+
+app.get('/auth',(req,res)=>{
+  res.send({Msg:'Bem vindo..'})
+})
 
 // Define port for Express server
 const PORT = process.env.PORT || 5000;
