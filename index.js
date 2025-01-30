@@ -8,6 +8,9 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 // Create an instance of Express app
 const app = express();
 
+
+
+
 // Middleware setup
 app.use(cors()); // Enable CORS
 app.use(helmet()); // Add security headers
@@ -22,11 +25,11 @@ const services = [
   },
   {
     route: "/users",
-    target: "https://your-deployed-service.herokuapp.com/users/",
+    target: "https://backend.ideroapp.com/api/students",
   },
   {
     route: "/chats",
-    target: "https://your-deployed-service.herokuapp.com/chats/",
+    target: "https://localhost:5000/olamundo/",
   },
   {
     route: "/payment",
@@ -56,7 +59,10 @@ function rateLimitAndTimeout(req, res, next) {
   // Update request count for the current IP
   requestCounts[ip] = (requestCounts[ip] || 0) + 1;
 
+
+    
   // Check if request count exceeds the rate limit
+  console.log('Numero: ',requestCounts[ip])
   if (requestCounts[ip] > rateLimit) {
     // Respond with a 429 Too Many Requests status code
     return res.status(429).json({
@@ -78,7 +84,6 @@ function rateLimitAndTimeout(req, res, next) {
     });
     req.abort(); // Abort the request
   });
-
   next(); // Continue to the next middleware
 }
 
@@ -110,8 +115,7 @@ app.use((_req, res) => {
   });
 });
 
-
-app.get('/auth',(req,res)=>{
+app.get('/olamundo',(req,res)=>{
   res.send({Msg:'Bem vindo..'})
 })
 
